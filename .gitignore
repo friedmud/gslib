@@ -1,0 +1,11 @@
+*.o
+*.a
+*~*
+
+tests/*_test
+tests/*_test2
+tests/f-igs
+tests/fortran/f-igs
+tests/gs_test_gop_blocking
+tests/gs_test_gop_nonblocking
+tests/gs_test_old
