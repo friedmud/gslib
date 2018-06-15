@@ -13,12 +13,12 @@
 #error "mem.h" requires "c99.h" and "fail.h"
 #endif
 
-/* 
+/*
    All memory management goes through the wrappers defined in this
    header. Diagnostics can be turned on with
      -DPRINT_MALLOCS=1
    Then all memory management operations will be printed to stdout.
-   
+
    Most memory management occurs through use of the "array" type,
    defined below, which defines a generic dynamically-sized array
    that grows in bursts. The "buffer" type is a "char" array and
@@ -140,7 +140,7 @@ static void *array_reserve_(struct array *a, size_t min, size_t size,
 static void array_cat_(size_t size, struct array *d, const void *s, size_t n,
                        const char *file, unsigned line)
 {
-  char *out = array_reserve_(d,d->n+n,size, file,line);
+  char *out = (char*)array_reserve_(d,d->n+n,size, file,line);
   memcpy(out+d->n*size, s, n*size);
   d->n+=n;
 }
@@ -165,4 +165,3 @@ static size_t align_as_(size_t a, size_t n) { return (n+a-1)/a*a; }
 #define align_as(T,n) align_as_(ALIGNOF(T),n)
 #define align_ptr(T,base,offset) ((T*)((char*)(base)+align_as(T,offset)))
 #endif
-
